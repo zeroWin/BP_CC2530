@@ -450,35 +450,38 @@ st( \
 #endif
 #endif
 
+//对UART的使用方式的定义，添加在设置中
+//HAL_UART_DMA = 0 禁用UART的DMA模式
+//HAL_UART_ISR = 1 使用UART1的ISR模式
 #if HAL_UART
-#ifndef HAL_UART_DMA
-#if HAL_DMA
-#if (defined ZAPP_P2) || (defined ZTOOL_P2)
-#define HAL_UART_DMA  2
-#else
-#define HAL_UART_DMA  1
-#endif
-#else
-#define HAL_UART_DMA  0
-#endif
-#endif
-
-#ifndef HAL_UART_ISR
-#if HAL_UART_DMA           // Default preference for DMA over ISR.
-#define HAL_UART_ISR  0
-#elif (defined ZAPP_P2) || (defined ZTOOL_P2)
-#define HAL_UART_ISR  2
-#else
-#define HAL_UART_ISR  1
-#endif
-#endif
+  #ifndef HAL_UART_DMA
+    #if HAL_DMA
+      #if (defined ZAPP_P2) || (defined ZTOOL_P2)
+        #define HAL_UART_DMA  2
+      #else
+        #define HAL_UART_DMA  1
+      #endif
+    #else
+      #define HAL_UART_DMA  0
+    #endif
+  #endif
+  
+  #ifndef HAL_UART_ISR
+    #if HAL_UART_DMA           // Default preference for DMA over ISR.
+      #define HAL_UART_ISR  0
+    #elif (defined ZAPP_P2) || (defined ZTOOL_P2)
+      #define HAL_UART_ISR  2
+    #else
+      #define HAL_UART_ISR  1
+    #endif
+  #endif
 
 #if (HAL_UART_DMA && (HAL_UART_DMA == HAL_UART_ISR))
 #error HAL_UART_DMA & HAL_UART_ISR must be different.
 #endif
 
 // Used to set P2 priority - USART0 over USART1 if both are defined.
-#if ((HAL_UART_DMA == 1) || (HAL_UART_ISR == 1))
+#if ((HAL_UART_DMA == 2) || (HAL_UART_ISR == 2))//选择UART1，HAL_UART_PRIPO要为0x40
 #define HAL_UART_PRIPO             0x00
 #else
 #define HAL_UART_PRIPO             0x40
