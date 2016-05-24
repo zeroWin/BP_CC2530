@@ -84,6 +84,7 @@
  * as the main clock source (instead of DCO).
  */
 #define HAL_CLOCK_CRYSTAL
+#define OSC32K_CRYSTAL_INSTALLED     FALSE
 
 /* 32 kHz clock source select in CLKCONCMD */
 #if !defined (OSC32K_CRYSTAL_INSTALLED) || (defined (OSC32K_CRYSTAL_INSTALLED) && (OSC32K_CRYSTAL_INSTALLED == TRUE))
@@ -437,7 +438,7 @@ st( \
 
 /* Set to TRUE enable LED usage, FALSE disable it */
 #ifndef HAL_LED
-#define HAL_LED TRUE
+#define HAL_LED FALSE
 #endif
 #if (!defined BLINK_LEDS) && (HAL_LED == TRUE)
 #define BLINK_LEDS
