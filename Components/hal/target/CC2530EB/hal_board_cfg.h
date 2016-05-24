@@ -139,16 +139,10 @@
 #define ACTIVE_HIGH       !!    /* double negation forces result to be '1' */
 
 /* S1 */
-#define PUSH1_BV          BV(1)
-#define PUSH1_SBIT        P0_1
+#define PUSH1_BV          BV(6)
+#define PUSH1_SBIT        P0_6
 
-#if defined (HAL_BOARD_CC2530EB_REV17)
-  #define PUSH1_POLARITY    ACTIVE_HIGH
-#elif defined (HAL_BOARD_CC2530EB_REV13)
-  #define PUSH1_POLARITY    ACTIVE_LOW
-#else
-  #error Unknown Board Indentifier
-#endif
+#define PUSH1_POLARITY    ACTIVE_LOW
 
 /* Joystick Center Press */
 #define PUSH2_BV          BV(0)
@@ -246,15 +240,13 @@ extern void MAC_RfFrontendSetup(void);
   /* Turn on cache prefetch mode */                              \
   PREFETCH_ENABLE();                                             \
                                                                  \
-  HAL_TURN_OFF_LED1();                                           \
-  LED1_DDR |= LED1_BV;                                           \
-  HAL_TURN_OFF_LED2();                                           \
-  LED2_DDR |= LED2_BV;                                           \
-  HAL_TURN_OFF_LED3();                                           \
-  LED3_DDR |= LED3_BV;                                           \
+  /* HAL_TURN_OFF_LED1(); */                                     \
+  /* LED1_DDR |= LED1_BV; */                                     \
+  /* HAL_TURN_OFF_LED2(); */                                     \
+  /* LED2_DDR |= LED2_BV; */                                     \
                                                                  \
   /* configure tristates */                                      \
-  P0INP |= PUSH2_BV;                                             \
+  /* P0INP |= PUSH2_BV;  */                                      \
 }
 
 #elif defined (HAL_BOARD_CC2530EB_REV13) || defined (HAL_PA_LNA) || defined (HAL_PA_LNA_CC2590)
