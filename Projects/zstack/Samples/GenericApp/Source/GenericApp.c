@@ -282,7 +282,11 @@ UINT16 GenericApp_ProcessEvent( byte task_id, UINT16 events )
           
           GenericApp_HandleNetworkStatus(GenericApp_NwkState);
           break;
-
+          
+        case CMD_SERIAL_UART_MSG:
+           GenericApp_ProcessUartData((OSALSerialData_t *)MSGpkt);
+           break;
+           
         default:
           break;
       }
@@ -530,6 +534,7 @@ void GenericApp_ProcessUartData( OSALSerialData_t *inMsg )
   pMsg = inMsg->msg;
   dataLen = inMsg->hdr.status;
     
+  
   // 发送数据
   if(dataLen == 68) // 只有数据长度为68时，才发送，防止意外情况
   {
